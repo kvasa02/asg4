@@ -1,0 +1,174 @@
+<head>
+    <meta charset="utf-8"/>
+    <title>Koushik Vasa Asg4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        canvas {
+            display: block;
+            margin: auto;
+            border: 2px solid #333;
+            background-color: white;
+        }
+
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s ease;
+            margin-bottom: 5px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #b02a37;
+        }
+
+        .slider {
+            width: 150px;
+            margin: 5px 10px;
+        }
+
+        /* Row layout for buttons */
+        .controls-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        /* Ensures related sliders appear under respective buttons */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body onload="main()">
+    <canvas height="600" id="webgl" width="600">
+        Please use a browser that supports "canvas"
+    </canvas>
+
+    <p id="fps">ms: 0, fps: 0</p>
+
+    <!-- Button Row -->
+    <div class="controls-container">
+        <!-- Light Control -->
+        Normal : <button id="Normal_On">Normal ON/OFF</button>
+        <div class="control-group">
+            
+            <button class="btn" id="Light_On">Light ON</button>
+            <button class="btn btn-danger" id="Light_Off">Light OFF</button>
+            <div class="slider-container">
+                <label>Light X <input class="slider" id="lightSlideX" max="2000" min="0" type="range" value="1500"></label>
+                <label>Light Y <input class="slider" id="lightSlideY" max="500" min="-500" type="range" value="0"></label>
+                <label>Light Z <input class="slider" id="lightSlideZ" max="2000" min="50" type="range" value="1000"></label>
+            </div>
+        </div>
+
+        <!-- Spotlight Control -->
+        <div class="control-group">
+            <button class="btn" id="Spot_Light_on">Spot Light ON</button>
+            <button class="btn btn-danger" id="Spot_Light_off">Spot Light OFF</button>
+            <div class="slider-container">
+                <label>Spotlight X <input class="slider" id="SpotlightSlideX" max="300" min="0" type="range" value="150"></label>
+                <label>Spotlight Y <input class="slider" id="SpotlightSlideY" max="300" min="0" type="range" value="150"></label>
+                <label>Spotlight Z <input class="slider" id="SpotlightSlideZ" max="300" min="0" type="range" value="150"></label>
+            </div>
+        </div>
+
+          <!-- Sliders for Light Color -->
+    <div class="slider-container">
+        <h3>Light Color</h3>
+        <label>Red <input class="slider" id="lightRed" max="255" min="0" type="range" value="255"></label>
+        <label>Green <input class="slider" id="lightGreen" max="255" min="0" type="range" value="255"></label>
+        <label>Blue <input class="slider" id="lightBlue" max="255" min="0" type="range" value="255"></label>
+    </div>
+    <div class="controls-container">
+        <h3>Ant Animation!!!</h3>
+        <div class="control-group"><br>
+            <button class="btn" id="aniOn">Animate On</button>
+            <button class="btn btn-danger" id="aniOff">Animate Off</button>
+        </div>
+    </div>
+    
+    </div>
+        
+
+  
+
+    <script src="lib/webgl-utils.js"></script>
+    <script src="lib/webgl-debug.js"></script>
+    <script src="lib/cuon-utils.js"></script>
+    <script src="lib/cuon-matrix-cse160.js"></script>
+    <script src="BlockyAnimal.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Sphere.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Camera.js"></script>
+    <script src="asg4.js"></script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
